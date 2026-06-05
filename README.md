@@ -22,6 +22,9 @@ This project builds a **fully normalised PostgreSQL relational database** from r
 
 From national alliance seat totals to individual candidate EVM vs postal vote breakdowns, every insight is derived through schema design, multi-table joins, conditional aggregations, and correlated subqueries.
 
+<p align="center"><img width="1280" height="720" alt="main gif" src="https://github.com/user-attachments/assets/a1ca0190-2be8-4b77-b1bc-1e1699b0ba48" />
+
+
 > **Who is this for?** Anyone who wants to see what structured SQL analysis looks like on a rich, real-world political dataset — and hiring reviewers evaluating SQL/data skills.
 
 ---
@@ -47,17 +50,9 @@ From national alliance seat totals to individual candidate EVM vs postal vote br
 
 ### Entity Relationship Diagram
 
-![ERD](ERD.png)
+<p align="center"><img width="1337" height="802" alt="ERD" src="https://github.com/user-attachments/assets/ceed60cf-308e-48c7-be60-706e30bec7be" />
 
-### Table Hierarchy
 
-```
-States
- └── Statewise_Results          (FK: State_ID)
-       └── Constituencywise_Results   (FK: Parliament_Constituency)
-             ├── Partywise_Results         (FK: Party_ID)
-             └── Constituencywise_Details  (FK: Constituency_ID)
-```
 
 ### Table Reference
 
@@ -76,85 +71,32 @@ States
 ### Alliance Seat Aggregation (Q3)
 Uses conditional aggregation to sum seats across all 14 NDA member parties in a single pass — no subqueries, no temp tables.
 
-```sql
-SELECT 
-  SUM(CASE 
-    WHEN Party_Name IN (
-      'Bharatiya Janata Party - BJP', 
-      'Telugu Desam - TDP', 
-      'Janata Dal (United) - JD(U)',
-      -- ... 11 more parties
-    ) THEN Won
-    ELSE 0 
-  END) AS NDA_Total_Seats_Won
-FROM Partywise_Results;
-```
+<p align="center"><img width="1280" height="612" alt="3" src="https://github.com/user-attachments/assets/b8accfc3-0f9f-42ea-94da-e3f977c5871c" />
+
 
 ---
 
 ### Live Schema Enrichment (Q7)
 Demonstrates DDL + DML together — evolving the schema mid-analysis by adding a derived column, then populating it across three UPDATE passes.
 
-```sql
-ALTER TABLE Partywise_Results ADD Party_Alliance VARCHAR(100);
+<p align="center"><img width="1280" height="563" alt="7" src="https://github.com/user-attachments/assets/f09d9c8e-63bd-48e0-999d-67551c943136" />
 
-UPDATE Partywise_Results SET Party_Alliance = 'NDA'      WHERE Party_Name IN (...);
-UPDATE Partywise_Results SET Party_Alliance = 'I.N.D.I.A' WHERE Party_Name IN (...);
-UPDATE Partywise_Results SET Party_Alliance = 'Other'    WHERE Party_Alliance IS NULL;
-```
 
 ---
 
 ### Correlated Subquery — Top EVM Votes (Q10)
 For each constituency, finds the candidate with the highest EVM votes using a correlated subquery, then ranks the top 10 nationally.
 
-```sql
-SELECT
-    cr.Constituency_Name,
-    cd.Candidate_Name,
-    cd.EVM_Votes
-FROM constituencywise_details cd
-JOIN constituencywise_results cr ON cd.Constituency_ID = cr.Constituency_ID
-WHERE cd.EVM_Votes = (
-    SELECT MAX(cd1.EVM_Votes)
-    FROM constituencywise_details cd1
-    WHERE cd1.Constituency_ID = cd.Constituency_ID   -- correlated condition
-)
-ORDER BY cd.EVM_Votes DESC
-LIMIT 10;
-```
+<p align="center"><img width="1280" height="529" alt="10" src="https://github.com/user-attachments/assets/c8080bed-65d5-41c7-9f96-5ad912336226" />
+
 
 ---
 
 ### EVM vs Postal Vote Breakdown (Q9)
 Drill into any constituency to compare electronic and postal voting channels across all candidates.
 
-```sql
-SELECT 
-   cd.Candidate_Name,
-   cd.Party_Name,
-   cd.EVM_Votes,
-   cd.Postal_Votes,
-   cd.Total_Votes,
-   cr.Constituency_Name
-FROM Constituencywise_Details cd
-JOIN Constituencywise_Results cr ON cd.Constituency_ID = cr.Constituency_ID
-WHERE cr.Constituency_Name = 'KOLKATADAKSHIN'
-ORDER BY cd.Total_Votes DESC;
-```
+<p align="center"><img width="1280" height="514" alt="9" src="https://github.com/user-attachments/assets/91a2d80b-acd4-472d-9010-1bd716bbfff0" />
 
----
-
-## 📁 Repository Structure
-
-```
-📦 indian-election-2024-sql
- ┣ 📄 Table_Create.sql              ← DDL: 5 tables, PKs, FKs, data types
- ┣ 📄 import_data.sql               ← COPY commands to load CSV data
- ┣ 📄 indian_election_session.sql   ← All 10 analytical queries (commented)
- ┣ 🖼️  ERD.png                       ← Entity-Relationship Diagram (pgAdmin 4)
- ┗ 📄 README.md
-```
 
 ---
 
@@ -168,27 +110,27 @@ ORDER BY cd.Total_Votes DESC;
 ### Setup
 
 **Step 1 — Create the database**
-```bash
-createdb indian_elections_2024
-```
+
+- createdb indian_elections_2024
+
 
 **Step 2 — Build the schema**
-```bash
-psql -d indian_elections_2024 -f Table_Create.sql
-```
+
+- psql -d indian_elections_2024 -f Table_Create.sql
+
 
 **Step 3 — Load the data**
 
 > ⚠️ Open `import_data.sql` and update the CSV file paths from `C:\DA\...` to your local directory before running.
 
-```bash
-psql -d indian_elections_2024 -f import_data.sql
-```
+
+- psql -d indian_elections_2024 -f import_data.sql
+
 
 **Step 4 — Run the analysis**
-```bash
-psql -d indian_elections_2024 -f indian_election_session.sql
-```
+
+- psql -d indian_elections_2024 -f indian_election_session.sql
+
 
 ---
 
@@ -230,7 +172,7 @@ psql -d indian_elections_2024 -f indian_election_session.sql
 
 ## 👤 Author
 
-**[Your Name]**
+**SOUMYADIP HALDAR**
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=flat&logo=linkedin)](https://linkedin.com/in/yourprofile)
 [![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=flat&logo=github)](https://github.com/yourusername)
