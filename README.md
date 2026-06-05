@@ -174,10 +174,9 @@ Drill into any constituency to compare electronic and postal voting channels acr
 
 **SOUMYADIP HALDAR**
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=flat&logo=linkedin)](https://linkedin.com/in/yourprofile)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=flat&logo=github)](https://github.com/yourusername)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=flat&logo=linkedin)](www.linkedin.com/in/soumyadip-haldar-289434290)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=flat&logo=github)](https://github.com/Soumyadip0605)
 
----
 
 <p align="center">
   <i>Data sourced from publicly available Election Commission of India results — 18th Lok Sabha General Election, 2024.</i>
