@@ -121,7 +121,7 @@ Drill into any constituency to compare electronic and postal voting channels acr
 
 **Step 3 — Load the data**
 
-> ⚠️ Open `import_data.sql` and update the CSV file paths from `C:\DA\...` to your local directory before running.
+> ⚠️ Open `import_data.sql` and update the CSV file paths from your local directory before running.
 
 
 `psql -d indian_elections_2024 -f import_data.sql`
