@@ -111,12 +111,12 @@ Drill into any constituency to compare electronic and postal voting channels acr
 
 **Step 1 — Create the database**
 
-- createdb indian_elections_2024
+`createdb indian_elections_2024`
 
 
 **Step 2 — Build the schema**
 
-- psql -d indian_elections_2024 -f Table_Create.sql
+`psql -d indian_elections_2024 -f Table_Create.sql`
 
 
 **Step 3 — Load the data**
@@ -124,12 +124,12 @@ Drill into any constituency to compare electronic and postal voting channels acr
 > ⚠️ Open `import_data.sql` and update the CSV file paths from `C:\DA\...` to your local directory before running.
 
 
-- psql -d indian_elections_2024 -f import_data.sql
+`psql -d indian_elections_2024 -f import_data.sql`
 
 
 **Step 4 — Run the analysis**
 
-- psql -d indian_elections_2024 -f indian_election_session.sql
+`psql -d indian_elections_2024 -f indian_election_session.sql`
 
 
 ---
