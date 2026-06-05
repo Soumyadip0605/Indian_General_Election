@@ -16,9 +16,9 @@
 
 ## 📖 About The Project
 
-India's 2024 Lok Sabha election was one of the **largest democratic exercises in human history** — 960 million eligible voters, 543 parliamentary seats, and thousands of candidates competing across a country of 1.4 billion people.
+India's 2024 Lok Sabha election was one of the **largest democratic exercises in human history** - 960 million eligible voters, 543 parliamentary seats, and thousands of candidates competing across a country of 1.4 billion people.
 
-This project builds a **fully normalised PostgreSQL relational database** from raw election result CSVs and answers 10 real-world electoral questions using pure SQL — no Python, no BI tool, no shortcuts.
+This project builds a **fully normalised PostgreSQL relational database** from raw election result CSVs and answers 10 real-world electoral questions using pure SQL - no Python, no BI tool, no shortcuts.
 
 From national alliance seat totals to individual candidate EVM vs postal vote breakdowns, every insight is derived through schema design, multi-table joins, conditional aggregations, and correlated subqueries.
 
